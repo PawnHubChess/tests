@@ -10,6 +10,7 @@ on:
 
 jobs:
   backend:
+    name: Prepare Backend
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +32,7 @@ jobs:
           npx wait-on http://localhost:3000 && echo "Backend is running"
 
   board:
+    name: Prepare Board Client
     runs-on: ubuntu-latest
     needs: backend
 
@@ -58,6 +60,7 @@ jobs:
           echo "Board client should running, but connection is currently not verified"
 
   web:
+    name: Prepare Web Client
     runs-on: ubuntu-latest
 
     steps:
@@ -78,6 +81,7 @@ jobs:
           cd ..
 
   test:
+    name: Run E2E Tests
     runs-on: ubuntu-latest
     needs:
       - backend
