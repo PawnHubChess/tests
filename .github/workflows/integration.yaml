@@ -32,7 +32,7 @@ jobs:
       - name: Run Server
         run: |
           deno run --allow-net ./backend/server.ts --debug &
-          npx wait-on http://localhost:3000 && echo "Backend is running"
+          npx wait-on --timeout 10000 http://localhost:3000 && echo "Backend is running"
 
   board:
     name: Prepare Board Client
@@ -83,7 +83,7 @@ jobs:
         run: |
           cd ./web
           npm run dev &
-          npx wait-on http://127.0.0.1:5173 && echo "Web client is running"
+          npx wait-on --timeout 10000 http://127.0.0.1:5173 && echo "Web client is running"
 
       - uses: vishnudxb/cancel-workflow@v1.2
         if: failure()
