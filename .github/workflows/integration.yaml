@@ -22,8 +22,13 @@ jobs:
       - name: Setup deno
         uses: denoland/setup-deno@v1
 
+      - name: Install wait-on
+        run: "npm install wait-on"
+
       - name: Run Server
-        run: deno run --allow-net ./backend/server.ts
+        run: |
+          deno run --allow-net ./backend/server.ts &
+          npx wait-on http://localhost:3000 && echo "Backend is running"
 
   web:
     runs-on: ubuntu-latest
