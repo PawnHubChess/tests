@@ -23,7 +23,7 @@ jobs:
         uses: denoland/setup-deno@v1
 
       - name: Run Server
-        run: deno run ./backend/server.ts
+        run: deno run --allow-net ./backend/server.ts
 
   web:
     runs-on: ubuntu-latest
