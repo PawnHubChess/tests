@@ -79,6 +79,9 @@ jobs:
           npm run preview
           sleep 2s
           cd ..
+      
+      - uses: vishnudxb/cancel-workflow@v1.2
+        if: failure()
 
   test:
     name: Run E2E Tests
