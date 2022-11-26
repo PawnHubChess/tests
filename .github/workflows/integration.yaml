@@ -32,6 +32,7 @@ jobs:
 
   board:
     runs-on: ubuntu-latest
+    requires: backend
 
     steps:
       - uses: actions/checkout@master
@@ -57,6 +58,9 @@ jobs:
 
   web:
     runs-on: ubuntu-latest
+    requires:
+      - backend
+      - board
 
     steps:
       - uses: actions/checkout@master
