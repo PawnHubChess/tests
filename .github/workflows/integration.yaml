@@ -14,10 +14,17 @@ jobs:
     needs: checkout
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout backened
+        uses: actions/checkout@master
         with:
           repository: PawnHubChess/backend
           path: ./backend
+
+      - name: Setup deno
+        uses: denoland/setup-deno@v1
+
+      - name: Run Server
+        run: deno run ./backend/server.ts
 
   web:
     runs-on: ubuntu-latest
