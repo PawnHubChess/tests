@@ -32,7 +32,7 @@ jobs:
 
   board:
     runs-on: ubuntu-latest
-    requires: backend
+    needs: backend
 
     steps:
       - name: Checkout board client
@@ -59,7 +59,7 @@ jobs:
 
   web:
     runs-on: ubuntu-latest
-    requires:
+    needs:
       - backend
       - board
 
