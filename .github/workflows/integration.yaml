@@ -70,11 +70,11 @@ jobs:
           repository: PawnHubChess/client-web
           path: ./web
 
+      # Cannot use setup-node, no option to install in ./web
       - name: Install dependencies
-        uses: actions/setup-node@v3
-        with:
-          cache: "npm"
-          cache-dependency-path: "./web/package-lock.json"
+        run: |
+          cd ./web
+          npm install
 
       - name: Install wait-on
         run: "npm install wait-on"
