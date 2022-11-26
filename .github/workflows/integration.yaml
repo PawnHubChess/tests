@@ -69,3 +69,9 @@ jobs:
         with:
           repository: PawnHubChess/client-web
           path: ./web
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run preview server
+        run: npm run preview
