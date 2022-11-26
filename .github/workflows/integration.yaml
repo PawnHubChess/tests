@@ -17,8 +17,17 @@ jobs:
         with:
           repository: PawnHubChess/backend
           path: ./backend
+          
+      - uses: actions/checkout@master
+        with:
+          repository: PawnHubChess/client-web
+          path: ./web
+          
+      - uses: actions/checkout@master
+        with:
+          repository: PawnHubChess/client-board
+          path: ./board
+          
 
       - name: Show Working directory
-        run: ls
-
-      - run: echo "This job's status is ${{ job.status }}."
+        run: tree
