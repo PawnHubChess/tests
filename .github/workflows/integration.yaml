@@ -9,25 +9,32 @@ on:
   pull_request:
 
 jobs:
-  checkout:
+  backend:
     runs-on: ubuntu-latest
+    needs: checkout
 
     steps:
       - uses: actions/checkout@master
         with:
           repository: PawnHubChess/backend
           path: ./backend
-          
+
+  web:
+    runs-on: ubuntu-latest
+    needs: checkout
+
+    steps:
       - uses: actions/checkout@master
         with:
           repository: PawnHubChess/client-web
           path: ./web
-          
+
+  board:
+    runs-on: ubuntu-latest
+    needs: checkout
+
+    steps:
       - uses: actions/checkout@master
         with:
           repository: PawnHubChess/client-board
           path: ./board
-          
-
-      - name: Show Working directory
-        run: tree
