@@ -76,12 +76,14 @@ jobs:
           npm install
           cd ..
 
+      - name: Install wait-on
+        run: "npm install wait-on"
+
       - name: Run preview server
         run: |
           cd ./web
-          npm run preview
-          sleep 2s
-          cd ..
+          npm run dev &
+          npx wait-on http://127.0.0.1:5173 && echo "Web client is running"
 
       - uses: vishnudxb/cancel-workflow@v1.2
         if: failure()
