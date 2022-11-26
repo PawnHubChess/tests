@@ -30,6 +30,27 @@ jobs:
           deno run --allow-net ./backend/server.ts &
           npx wait-on http://localhost:3000 && echo "Backend is running"
 
+  board:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+        with:
+          repository: PawnHubChess/client-board
+          path: ./board
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Run board client
+        run: |
+          python ./board/client.py --local &
+          sleep 2s
+          echo "Board client should running, but connection is currently not verified"
+
   web:
     runs-on: ubuntu-latest
 
@@ -39,11 +60,3 @@ jobs:
           repository: PawnHubChess/client-web
           path: ./web
 
-  board:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@master
-        with:
-          repository: PawnHubChess/client-board
-          path: ./board
