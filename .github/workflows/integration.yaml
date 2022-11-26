@@ -71,10 +71,10 @@ jobs:
           path: ./web
 
       - name: Install dependencies
-        run: |
-          cd ./web
-          npm install
-          cd ..
+        uses: actions/setup-node@v3
+        with:
+          cache: "npm"
+          cache-dependency-path: "./web/package-lock.json"
 
       - name: Install wait-on
         run: "npm install wait-on"
