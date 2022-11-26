@@ -74,4 +74,8 @@ jobs:
         run: npm install
 
       - name: Run preview server
-        run: npm run preview
+        run: |
+          cd ./web
+          npm run preview
+          sleep 2s
+          cd ..
