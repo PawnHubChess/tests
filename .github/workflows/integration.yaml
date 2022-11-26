@@ -26,6 +26,9 @@ jobs:
       - name: Install wait-on
         run: "npm install wait-on"
 
+      - name: Cache Deno Dependencies
+        run: deno cache ./backend/deps.ts
+
       - name: Run Server
         run: |
           deno run --allow-net ./backend/server.ts --debug &
