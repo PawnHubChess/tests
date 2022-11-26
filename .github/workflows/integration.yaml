@@ -71,7 +71,10 @@ jobs:
           path: ./web
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd ./web
+          npm install
+          cd ..
 
       - name: Run preview server
         run: |
@@ -79,7 +82,7 @@ jobs:
           npm run preview
           sleep 2s
           cd ..
-      
+
       - uses: vishnudxb/cancel-workflow@v1.2
         if: failure()
 
