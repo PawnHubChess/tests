@@ -2,7 +2,7 @@ name: Projects Integration Test
 run-name: Playing Chess and Testing Integration ✨
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
   push:
     branches:
       - main
