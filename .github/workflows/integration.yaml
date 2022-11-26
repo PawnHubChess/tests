@@ -1,0 +1,19 @@
+name: Projects Integration Test
+run-name: Playing Chess and Testing Integration ✨
+
+on:
+  workflow-dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  - uses: actions/checkout@master
+    with:
+      repository: PawnHubChess/backend
+      path: ./backend
+
+  - name: Show Working directory
+    run: ls
+
+  - run: echo "This job's status is ${{ job.status }}."
