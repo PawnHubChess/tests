@@ -35,7 +35,8 @@ jobs:
     requires: backend
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout board client
+        uses: actions/checkout@master
         with:
           repository: PawnHubChess/client-board
           path: ./board
@@ -63,7 +64,8 @@ jobs:
       - board
 
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout web client
+        uses: actions/checkout@master
         with:
           repository: PawnHubChess/client-web
           path: ./web
