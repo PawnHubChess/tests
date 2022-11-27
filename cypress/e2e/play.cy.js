@@ -3,15 +3,11 @@ beforeEach(() => {
   cy.intercept("WebSocketConnection.ts").as("svelte");
   cy.visit("/play");
   cy.wait("@svelte");
-
-  Cypress.Keyboard.defaults({
-    keystrokeDelay: 250,
-  })
 });
 
 describe("empty spec", () => {
   it("passes", () => {
-    cy.wait(1000);
+    cy.wait(3000);
 
     cy.get("#entirePageLocalServer").check();
     cy.get("#input1").type("0000"); // debug id
@@ -30,6 +26,9 @@ describe("empty spec", () => {
         return false;
       }
     });
+
+
+    cy.wait(1000);
 
     cy.url().should("contain", "/play/game");
     cy.get("chess-board").should("be.visible");
