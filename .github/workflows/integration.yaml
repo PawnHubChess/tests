@@ -58,7 +58,7 @@ jobs:
 
       - name: Run board client
         run: |
-          python ./board/client.py --local --override_code 1234 &
+          python ./board/client.py --local --override-code 1234 &
           sleep 1s
           echo "Board client should running, but connection is currently not verified"
 
