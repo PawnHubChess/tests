@@ -87,3 +87,13 @@ jobs:
         uses: actions/checkout@master
         with:
           path: ./tests
+
+      - name: Install cypress
+        run: |
+          cd ./tests
+          npm install cypress
+      
+      - name: Run Cypress Tests
+        run: |
+          cd ./tests
+          npx cypress run
