@@ -81,7 +81,7 @@ jobs:
           npm run dev &
           npx wait-on --timeout 10000 http://127.0.0.1:5173 && echo "Web client is running"
 
-    # Tests
+      # Tests
 
       - name: Checkout tests
         uses: actions/checkout@master
@@ -97,3 +97,11 @@ jobs:
         run: |
           cd ./tests
           npx cypress run
+
+      - name: Upload cypress video artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: ./tests/cypress/videos
+          
