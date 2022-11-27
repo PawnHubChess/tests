@@ -98,10 +98,10 @@ jobs:
           cd ./tests
           npx cypress run
 
-      - name: Upload cypress video artifacts
+      - name: Upload cypress screenshot artifacts
         uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: cypress-videos
-          path: ./tests/cypress/videos
+          name: cypress-screenshots
+          path: ./tests/cypress/screenshots
           
