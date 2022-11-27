@@ -9,8 +9,8 @@ on:
   pull_request:
 
 jobs:
-  backend:
-    name: Prepare Backend
+  # Cannot separate into multiple jobs because GitHub will terminate the backend
+  run:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,12 +35,8 @@ jobs:
           deno run --allow-net ./backend/server.ts --debug &
           npx wait-on --timeout 10000 http://localhost:3000 && echo "Backend is running"
 
-  board:
-    name: Prepare Board Client
-    runs-on: ubuntu-latest
-    needs: backend
+      # Board Client
 
-    steps:
       - name: Checkout board client
         uses: actions/checkout@master
         with:
@@ -63,11 +59,8 @@ jobs:
           sleep 1s
           echo "Board client should running, but connection is currently not verified"
 
-  web:
-    name: Prepare Web Client
-    runs-on: ubuntu-latest
+      # Web Client 
 
-    steps:
       - name: Checkout web client
         uses: actions/checkout@master
         with:
@@ -92,15 +85,8 @@ jobs:
       - uses: vishnudxb/cancel-workflow@v1.2
         if: failure()
 
-  test:
-    name: Run E2E Tests
-    runs-on: ubuntu-latest
-    needs:
-      - backend
-      - board
-      - web
-
-    steps:
+    # Tests
+    
       - name: Checkout integration test
         uses: actions/checkout@master
         with:
