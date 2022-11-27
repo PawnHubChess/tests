@@ -3,11 +3,15 @@ beforeEach(() => {
   cy.intercept("WebSocketConnection.ts").as("svelte");
   cy.visit("/play");
   cy.wait("@svelte");
+
+  Cypress.Keyboard.defaults({
+    keystrokeDelay: 250,
+  })
 });
 
 describe("empty spec", () => {
   it("passes", () => {
-    cy.wait(500);
+    cy.wait(1000);
 
     cy.get("#entirePageLocalServer").check();
     cy.get("#input1").type("0000"); // debug id
