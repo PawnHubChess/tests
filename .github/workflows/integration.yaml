@@ -29,7 +29,7 @@ jobs:
       - name: Cache Deno Dependencies
         run: deno cache ./backend/deps.ts
 
-      - name: Run Server
+      - name: 🚀 Start Backend
         run: |
           deno run --allow-net ./backend/server.ts --debug &
           npx wait-on --timeout 10000 http://localhost:3000 && echo "Backend is running"
@@ -52,7 +52,7 @@ jobs:
       - name: Install python dependencies
         run: pip install -r ./board/requirements.txt
 
-      - name: Run board client
+      - name: 🚀 Start Board Client
         run: |
           python ./board/client.py --local --override-code 1234 &
           sleep 1s
@@ -75,7 +75,7 @@ jobs:
       - name: Install wait-on
         run: "npm install wait-on"
 
-      - name: Run preview server
+      - name: 🚀 Start Dev Web Client
         run: |
           cd ./web
           npm run dev &
@@ -83,7 +83,7 @@ jobs:
 
     # Tests
 
-      - name: Checkout integration test
+      - name: Checkout tests
         uses: actions/checkout@master
         with:
           path: ./tests
