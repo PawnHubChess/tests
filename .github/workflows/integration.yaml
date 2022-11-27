@@ -31,6 +31,7 @@ jobs:
 
       - name: Run Server
         run: |
+          RUNNER_TRACKING_ID="" &&
           deno run --allow-net ./backend/server.ts --debug &
           npx wait-on --timeout 10000 http://localhost:3000 && echo "Backend is running"
 
