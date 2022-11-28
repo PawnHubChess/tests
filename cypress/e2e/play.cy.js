@@ -1,12 +1,13 @@
-beforeEach(() => {
-  cy.viewport("macbook-15");
-  cy.intercept("WebSocketConnection.ts").as("svelte");
-  cy.visit("/play");
-  cy.wait("@svelte");
+let spyErrorLog;
+before(() => {
+  Cypress.on("window:before:load", (win) => {
+    spyErrorLog = cy.spy(win.console, "log");
+  });
 });
 
 describe("empty spec", () => {
   it("passes", () => {
+    cy.visit("/play");
     cy.wait(3000);
 
     cy.get("#entirePageLocalServer").check();
