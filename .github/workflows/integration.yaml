@@ -1,0 +1,91 @@
+name: Projects Integration Test
+run-name: Integration Tests 🔌
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  # Cannot separate into multiple jobs because GitHub will terminate the backend
+  run:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout backened
+        uses: actions/checkout@master
+        with:
+          repository: PawnHubChess/backend
+          path: ./backend
+
+      - name: Checkout board client
+        uses: actions/checkout@master
+        with:
+          repository: PawnHubChess/client-board
+          path: ./board
+
+      - name: Checkout web client
+        uses: actions/checkout@master
+        with:
+          repository: PawnHubChess/client-web
+          path: ./web
+
+      - name: Setup deno
+        uses: denoland/setup-deno@v1
+
+      - name: Install wait-on
+        run: "npm install wait-on"
+
+      - name: Cache Deno Dependencies
+        run: deno cache ./backend/deps.ts
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+          cache-dependency-path: "./board/requirements.txt"
+
+      - name: Install python dependencies
+        run: pip install -r ./board/requirements.txt
+
+      # Cannot use setup-node, no option to install in ./web
+      - name: Install web dependencies
+        run: |
+          cd ./web
+          npm install
+
+      - name: 🚀 Start Backend
+        run: |
+          deno run --allow-net ./backend/server.ts --debug &
+          npx wait-on --timeout 10000 http://localhost:3000 && echo "Backend is running"
+
+      - name: 🚀 Start Board Client
+        run: |
+          python ./board/client.py --local --override-code 1234 &
+          sleep 1s
+          echo "Board client should running, but connection is currently not verified"
+
+      - name: Install wait-on
+        run: "npm install wait-on"
+
+      # Tests
+
+      - name: Checkout tests
+        uses: actions/checkout@master
+        with:
+          path: ./tests
+
+      - name: Install test dependencies
+        run: |
+          cd ./tests
+          npm install
+          cd ..
+      
+      - name: Run Integration tests
+        run: |
+          cd ./tests
+          npm run test
+          cd ..
