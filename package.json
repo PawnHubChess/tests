@@ -4,7 +4,7 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/PawnHubChess/tests/issues"
   },
-  "homepage": "https://github.com/PawnHubChess/tests#readme"
+  "homepage": "https://github.com/PawnHubChess/tests#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
 }
