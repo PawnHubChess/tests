@@ -87,5 +87,5 @@ jobs:
       - name: Run Integration tests
         run: |
           cd ./tests
-          npm run test
+          npm run test:integration
           cd ..
